@@ -1,0 +1,8 @@
+go 1.24.1
+
+use .
+
+replace (
+	// 你记得修改这个，要指向你本地的 platform 的代码
+	gitee.com/flycash/permission-platform => ../permission-platform
+)
