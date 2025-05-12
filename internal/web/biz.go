@@ -6,34 +6,33 @@ import (
 	permissionv1 "gitee.com/flycash/permission-platform/api/proto/gen/permission/v1"
 	"github.com/ecodeclub/ginx"
 	"github.com/ecodeclub/ginx/session"
-	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc/metadata"
 )
 
-type AdminHandler struct {
+type BizHandler struct {
+	rbacSvc permissionv1.RBACServiceClient
+	svc     permissionv1.PermissionServiceClient
+	// biz_id = 1 的 token
 	adminToken string
-	rbacSvc    permissionv1.RBACServiceClient
-	svc        permissionv1.PermissionServiceClient
 }
 
-func (h *AdminHandler) RegisterRoutes(server *gin.Engine) {
-	ginx.BS(h.CreateBiz)
-}
-
-func (h *AdminHandler) CreateBiz(ctx *ginx.Context, req CreateBizReq, session session.Session) (ginx.Result, error) {
-	uid := session.Claims().Uid
-}
-
-// 超级管理员用的
-// 先检测我是不是超级管理员
-func (b *AdminHandler) CreateRole(ctx *ginx.Context, req CreateRoleRequest, sess session.Session) (ginx.Result, error) {
+// CreateRole 创建业务内的角色，比如说店长
+func (b *BizHandler) CreateRole(ctx *ginx.Context, req CreateRoleRequest, sess session.Session) (ginx.Result, error) {
 	gctx := metadata.AppendToOutgoingContext(ctx, "Authorization", b.adminToken)
-	uid := sess.Claims().Uid
+	bizResp, err := b.rbacSvc.GetBusinessConfig(gctx, &permissionv1.GetBusinessConfigRequest{
+		Id: req.BizID,
+	})
+	if err != nil {
+		return ginx.Result{}, err
+	}
 
+	gctx = metadata.AppendToOutgoingContext(ctx, "Authorization", bizResp.Config.Token)
+	// biz_id = 2
+	uid := sess.Claims().Uid
 	resp, err := b.svc.CheckPermission(gctx, &permissionv1.CheckPermissionRequest{
 		Uid: uid,
 		Permission: &permissionv1.Permission{
-			ResourceKey: "/admin/role",
+			ResourceKey: fmt.Sprintf("/admin/role/%d", req.BizID),
 		},
 	})
 	if err != nil {
@@ -45,8 +44,7 @@ func (b *AdminHandler) CreateRole(ctx *ginx.Context, req CreateRoleRequest, sess
 
 	roleResp, err := b.rbacSvc.CreateRole(gctx, &permissionv1.CreateRoleRequest{
 		Role: &permissionv1.Role{
-			BizId: req.BizID,
-			Name:  req.Name,
+			Name: req.Name,
 		},
 	})
 	if err != nil {
@@ -55,4 +53,9 @@ func (b *AdminHandler) CreateRole(ctx *ginx.Context, req CreateRoleRequest, sess
 	return ginx.Result{
 		Data: roleResp.Role.Id,
 	}, nil
+}
+
+type CreateRoleRequest struct {
+	BizID int64
+	Name  string
 }

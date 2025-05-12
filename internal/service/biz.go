@@ -58,7 +58,7 @@ func (svc *AdminService) CreateBiz(ctx context.Context, biz domain.BizConfig) er
 	const resourceType = "amdin"
 	resources := [3]string{"role", "resource", "permission"}
 	for _, resource := range resources {
-		key := "gitee.com/flycash/permission-platform-admin/%d/%s"
+		key := "/admin/%d/%s"
 		// key := "gitee.com/flycash/permission-platform-admin/2/role"
 		res, err := svc.rbacSvc.CreateResource(ctx, &permissionv1.CreateResourceRequest{
 			Resource: &permissionv1.Resource{
