@@ -3,17 +3,18 @@ module gitee.com/flycash/permission-platform-admin
 go 1.24.1
 
 require (
+	gitee.com/flycash/permission-platform v0.0.1
+	github.com/ecodeclub/ekit v0.0.9
 	github.com/ecodeclub/ginx v0.0.1
 	github.com/gin-gonic/gin v1.10.0
+	google.golang.org/grpc v1.72.0
 )
 
 require (
-	gitee.com/flycash/permission-platform v0.0.1 // indirect
 	github.com/bytedance/sonic v1.11.6 // indirect
 	github.com/bytedance/sonic/loader v0.1.1 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
 	github.com/cloudwego/iasm v0.2.0 // indirect
-	github.com/ecodeclub/ekit v0.0.9 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
@@ -34,6 +35,7 @@ require (
 	golang.org/x/net v0.35.0 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
+	google.golang.org/genproto v0.0.0-20220310185008-1973136f34c6 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
