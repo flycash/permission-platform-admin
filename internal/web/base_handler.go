@@ -101,7 +101,6 @@ func (h *BaseHandler) listBusinessConfigs(ctx context.Context, req ListReq) (gin
 			Rows: slice.Map(resp.Configs, func(_ int, src *permissionv1.BusinessConfig) BusinessConfig {
 				return h.toBusinessConfigVO(src)
 			}),
-			Total: resp.Total,
 		},
 	}, nil
 }
@@ -193,7 +192,6 @@ func (h *BaseHandler) listResources(ctx context.Context, req ListReq) (ginx.Resu
 			Rows: slice.Map(resp.Resources, func(_ int, src *permissionv1.Resource) Resource {
 				return h.toResourceVO(src)
 			}),
-			Total: resp.Total,
 		},
 	}, nil
 }
@@ -290,7 +288,6 @@ func (h *BaseHandler) listPermissions(ctx context.Context, req ListReq) (ginx.Re
 			Rows: slice.Map(resp.Permissions, func(_ int, src *permissionv1.Permission) Permission {
 				return h.toPermissionVO(src)
 			}),
-			Total: resp.Total,
 		},
 	}, nil
 }
@@ -380,7 +377,6 @@ func (h *BaseHandler) listRoles(ctx context.Context, req ListReq) (ginx.Result, 
 			Rows: slice.Map(resp.Roles, func(_ int, src *permissionv1.Role) Role {
 				return h.toRoleVO(src)
 			}),
-			Total: resp.Total,
 		},
 	}, nil
 }
@@ -476,7 +472,6 @@ func (h *BaseHandler) listRoleInclusions(ctx context.Context, req ListReq) (ginx
 			Rows: slice.Map(resp.RoleInclusions, func(_ int, src *permissionv1.RoleInclusion) RoleInclusion {
 				return h.toRoleInclusionVO(src)
 			}),
-			Total: resp.Total,
 		},
 	}, nil
 }
@@ -551,7 +546,6 @@ func (h *BaseHandler) listRolePermissions(ctx context.Context, req ListReq) (gin
 			Rows: slice.Map(resp.RolePermissions, func(_ int, src *permissionv1.RolePermission) RolePermission {
 				return h.toRolePermissionVO(src)
 			}),
-			Total: resp.Total,
 		},
 	}, nil
 }
@@ -622,7 +616,6 @@ func (h *BaseHandler) listUserRoles(ctx context.Context, req ListReq) (ginx.Resu
 			Rows: slice.Map(resp.UserRoles, func(_ int, src *permissionv1.UserRole) UserRole {
 				return h.toUserRoleVO(src)
 			}),
-			Total: resp.Total,
 		},
 	}, nil
 }
@@ -697,7 +690,6 @@ func (h *BaseHandler) listUserPermissions(ctx context.Context, req ListReq) (gin
 			Rows: slice.Map(resp.UserPermissions, func(_ int, src *permissionv1.UserPermission) UserPermission {
 				return h.toUserPermissionVO(src)
 			}),
-			Total: resp.Total,
 		},
 	}, nil
 }

@@ -86,7 +86,6 @@ func (h *AccountHandler) ListRoles(ctx *ginx.Context, req ListReq, sess session.
 			Rows: slice.Map(resp.Roles, func(_ int, src *permissionv1.Role) Role {
 				return h.toRoleVO(src)
 			}),
-			Total: resp.Total,
 		},
 	}, nil
 }

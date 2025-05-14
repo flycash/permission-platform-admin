@@ -25,8 +25,7 @@ type ListReq struct {
 }
 
 type ListResp[T any] struct {
-	Total int32 `json:"total,omitzero"`
-	Rows  []T   `json:"Rows,omitzero"`
+	Rows []T `json:"Rows,omitzero"`
 }
 
 // Resource 资源
@@ -133,29 +132,29 @@ type CreateAccountRoleReq struct {
 }
 
 type GrantAccountRolePermissionReq struct {
-	BizID int64 `json:"bizId,omitzero"`
+	BizID      int64      `json:"bizId,omitzero"`
 	Role       Role       `json:"role,omitzero"`
 	Permission Permission `json:"permission,omitzero"`
 }
 
 type GrantAccountRoleReq struct {
-	BizID int64 `json:"bizId,omitzero"`
+	BizID      int64      `json:"bizId,omitzero"`
 	Role       Role       `json:"role,omitzero"`
 	Permission Permission `json:"permission,omitzero"`
 }
 
 type RevokeRolePermissionReq struct {
 	BizID int64 `json:"bizId,omitzero"`
-	ID int64 `json:"id"`
+	ID    int64 `json:"id"`
 }
 
 type GrantUserRoleReq struct {
-	BizID int64 `json:"bizId,omitzero"`
+	BizID  int64 `json:"bizId,omitzero"`
 	UserID int64 `json:"userId,omitzero"`
 	Role   Role  `json:"role,omitzero"`
 }
 
 type RevokeUserRoleReq struct {
 	BizID int64 `json:"bizId,omitzero"`
-	ID int64 `json:"id"`
+	ID    int64 `json:"id"`
 }
