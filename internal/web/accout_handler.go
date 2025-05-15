@@ -42,11 +42,11 @@ func (h *AccountHandler) checkAccountPermission(ctx context.Context, bizID, user
 }
 
 func (h *AccountHandler) CreateRole(ctx *ginx.Context, req CreateAccountRoleReq, sess session.Session) (ginx.Result, error) {
-	if err := h.checkAccountPermission(ctx, req.BizID, sess.Claims().Uid); err != nil {
-		return ginx.Result{}, err
-	}
 	businessAdminCtx, err := h.businessAdminCtx(ctx, req.BizID)
 	if err != nil {
+		return ginx.Result{}, err
+	}
+	if err = h.checkAccountPermission(businessAdminCtx, req.BizID, sess.Claims().Uid); err != nil {
 		return ginx.Result{}, err
 	}
 	resp, err := h.rbacSvc.CreateRole(businessAdminCtx, &permissionv1.CreateRoleRequest{
@@ -66,11 +66,11 @@ func (h *AccountHandler) CreateRole(ctx *ginx.Context, req CreateAccountRoleReq,
 }
 
 func (h *AccountHandler) ListRoles(ctx *ginx.Context, req ListReq, sess session.Session) (ginx.Result, error) {
-	if err := h.checkAccountPermission(ctx, req.BizID, sess.Claims().Uid); err != nil {
-		return ginx.Result{}, err
-	}
 	businessAdminCtx, err := h.businessAdminCtx(ctx, req.BizID)
 	if err != nil {
+		return ginx.Result{}, err
+	}
+	if err = h.checkAccountPermission(businessAdminCtx, req.BizID, sess.Claims().Uid); err != nil {
 		return ginx.Result{}, err
 	}
 	resp, err := h.rbacSvc.ListRoles(businessAdminCtx, &permissionv1.ListRolesRequest{
@@ -91,11 +91,11 @@ func (h *AccountHandler) ListRoles(ctx *ginx.Context, req ListReq, sess session.
 }
 
 func (h *AccountHandler) GrantRolePermission(ctx *ginx.Context, req GrantAccountRolePermissionReq, sess session.Session) (ginx.Result, error) {
-	if err := h.checkAccountPermission(ctx, req.BizID, sess.Claims().Uid); err != nil {
-		return ginx.Result{}, err
-	}
 	businessAdminCtx, err := h.businessAdminCtx(ctx, req.BizID)
 	if err != nil {
+		return ginx.Result{}, err
+	}
+	if err := h.checkAccountPermission(businessAdminCtx, req.BizID, sess.Claims().Uid); err != nil {
 		return ginx.Result{}, err
 	}
 	resp, err := h.rbacSvc.GrantRolePermission(businessAdminCtx, &permissionv1.GrantRolePermissionRequest{
@@ -118,11 +118,11 @@ func (h *AccountHandler) GrantRolePermission(ctx *ginx.Context, req GrantAccount
 }
 
 func (h *AccountHandler) RevokeRolePermission(ctx *ginx.Context, req RevokeRolePermissionReq, sess session.Session) (ginx.Result, error) {
-	if err := h.checkAccountPermission(ctx, req.BizID, sess.Claims().Uid); err != nil {
-		return ginx.Result{}, err
-	}
 	businessAdminCtx, err := h.businessAdminCtx(ctx, req.BizID)
 	if err != nil {
+		return ginx.Result{}, err
+	}
+	if err = h.checkAccountPermission(businessAdminCtx, req.BizID, sess.Claims().Uid); err != nil {
 		return ginx.Result{}, err
 	}
 	resp, err := h.rbacSvc.RevokeRolePermission(businessAdminCtx, &permissionv1.RevokeRolePermissionRequest{
@@ -137,11 +137,11 @@ func (h *AccountHandler) RevokeRolePermission(ctx *ginx.Context, req RevokeRoleP
 }
 
 func (h *AccountHandler) GrantUserRole(ctx *ginx.Context, req GrantUserRoleReq, sess session.Session) (ginx.Result, error) {
-	if err := h.checkAccountPermission(ctx, req.BizID, sess.Claims().Uid); err != nil {
-		return ginx.Result{}, err
-	}
 	businessAdminCtx, err := h.businessAdminCtx(ctx, req.BizID)
 	if err != nil {
+		return ginx.Result{}, err
+	}
+	if err = h.checkAccountPermission(businessAdminCtx, req.BizID, sess.Claims().Uid); err != nil {
 		return ginx.Result{}, err
 	}
 	resp, err := h.rbacSvc.GrantUserRole(businessAdminCtx, &permissionv1.GrantUserRoleRequest{
@@ -161,11 +161,11 @@ func (h *AccountHandler) GrantUserRole(ctx *ginx.Context, req GrantUserRoleReq, 
 }
 
 func (h *AccountHandler) RevokeUserRole(ctx *ginx.Context, req RevokeUserRoleReq, sess session.Session) (ginx.Result, error) {
-	if err := h.checkAccountPermission(ctx, req.BizID, sess.Claims().Uid); err != nil {
-		return ginx.Result{}, err
-	}
 	businessAdminCtx, err := h.businessAdminCtx(ctx, req.BizID)
 	if err != nil {
+		return ginx.Result{}, err
+	}
+	if err := h.checkAccountPermission(businessAdminCtx, req.BizID, sess.Claims().Uid); err != nil {
 		return ginx.Result{}, err
 	}
 	resp, err := h.rbacSvc.RevokeRolePermission(businessAdminCtx, &permissionv1.RevokeRolePermissionRequest{
