@@ -16,6 +16,9 @@ type AdminService struct {
 	adminToken string
 }
 
+// CreateBusinessConfig 业务方接入
+// 初始化业务方的权限，并且初始化业务管理员
+// 而后授予接入者业务管理员角色
 func (svc *AdminService) CreateBusinessConfig(ctx context.Context, businessConfig domain.BusinessConfig) error {
 	// 使用“系统管理员”权限创建业务配置
 	ctx = metadata.AppendToOutgoingContext(ctx, "Authorization", svc.adminToken)
