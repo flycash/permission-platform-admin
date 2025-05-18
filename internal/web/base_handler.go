@@ -535,8 +535,7 @@ func (h *BaseHandler) toRolePermissionVO(src *permissionv1.RolePermission) RoleP
 
 func (h *BaseHandler) listRolePermissions(ctx context.Context, req ListReq) (ginx.Result, error) {
 	resp, err := h.rbacSvc.ListRolePermissions(ctx, &permissionv1.ListRolePermissionsRequest{
-		Offset: int32(req.Offset),
-		Limit:  int32(req.Limit),
+		BizId: req.BizID,
 	})
 	if err != nil {
 		return ginx.Result{}, err
@@ -605,8 +604,7 @@ func (h *BaseHandler) toUserRoleVO(src *permissionv1.UserRole) UserRole {
 
 func (h *BaseHandler) listUserRoles(ctx context.Context, req ListReq) (ginx.Result, error) {
 	resp, err := h.rbacSvc.ListUserRoles(ctx, &permissionv1.ListUserRolesRequest{
-		Offset: int32(req.Offset),
-		Limit:  int32(req.Limit),
+		BizId: req.BizID,
 	})
 	if err != nil {
 		return ginx.Result{}, err
