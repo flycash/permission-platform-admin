@@ -12,14 +12,18 @@ import (
 )
 
 type AccountHandler struct {
-	BaseHandler
+	*BaseHandler
+}
+
+func NewAccountHandler(handler *BaseHandler) *AccountHandler {
+	return &AccountHandler{BaseHandler: handler}
 }
 
 func (h *AccountHandler) PrivateRoutes(server *gin.Engine) {
 	// 创建角色
 	server.POST("/account/role/create", ginx.BS[CreateAccountRoleReq](h.CreateRole))
 	// 展示角色
-	server.POST("/account/role/list", ginx.BS[ListReq](h.ListRoles))
+	server.GET("/account/role/list", ginx.BS[ListReq](h.ListRoles))
 	// 赋予角色权限
 	server.POST("/account/role/grant_permission", ginx.BS[GrantAccountRolePermissionReq](h.GrantRolePermission))
 	// 撤销角色权限
@@ -46,7 +50,8 @@ func (h *AccountHandler) CreateRole(ctx *ginx.Context, req CreateAccountRoleReq,
 	if err != nil {
 		return ginx.Result{}, err
 	}
-	if err = h.checkAccountPermission(businessAdminCtx, req.BizID, sess.Claims().Uid); err != nil {
+	err = h.checkAccountPermission(businessAdminCtx, req.BizID, sess.Claims().Uid)
+	if err != nil {
 		return ginx.Result{}, err
 	}
 	resp, err := h.rbacSvc.CreateRole(businessAdminCtx, &permissionv1.CreateRoleRequest{
@@ -70,7 +75,8 @@ func (h *AccountHandler) ListRoles(ctx *ginx.Context, req ListReq, sess session.
 	if err != nil {
 		return ginx.Result{}, err
 	}
-	if err = h.checkAccountPermission(businessAdminCtx, req.BizID, sess.Claims().Uid); err != nil {
+	err = h.checkAccountPermission(businessAdminCtx, req.BizID, sess.Claims().Uid)
+	if err != nil {
 		return ginx.Result{}, err
 	}
 	resp, err := h.rbacSvc.ListRoles(businessAdminCtx, &permissionv1.ListRolesRequest{
@@ -122,7 +128,8 @@ func (h *AccountHandler) RevokeRolePermission(ctx *ginx.Context, req RevokeRoleP
 	if err != nil {
 		return ginx.Result{}, err
 	}
-	if err = h.checkAccountPermission(businessAdminCtx, req.BizID, sess.Claims().Uid); err != nil {
+	err = h.checkAccountPermission(businessAdminCtx, req.BizID, sess.Claims().Uid)
+	if err != nil {
 		return ginx.Result{}, err
 	}
 	resp, err := h.rbacSvc.RevokeRolePermission(businessAdminCtx, &permissionv1.RevokeRolePermissionRequest{
@@ -141,7 +148,8 @@ func (h *AccountHandler) GrantUserRole(ctx *ginx.Context, req GrantUserRoleReq, 
 	if err != nil {
 		return ginx.Result{}, err
 	}
-	if err = h.checkAccountPermission(businessAdminCtx, req.BizID, sess.Claims().Uid); err != nil {
+	err = h.checkAccountPermission(businessAdminCtx, req.BizID, sess.Claims().Uid)
+	if err != nil {
 		return ginx.Result{}, err
 	}
 	resp, err := h.rbacSvc.GrantUserRole(businessAdminCtx, &permissionv1.GrantUserRoleRequest{

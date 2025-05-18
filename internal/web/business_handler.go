@@ -9,43 +9,48 @@ import (
 )
 
 type BusinessHandler struct {
-	BaseHandler
+	*BaseHandler
 }
 
+func NewBusinessHandler(handler *BaseHandler) *BusinessHandler {
+	return &BusinessHandler{BaseHandler: handler}
+}
+
+//nolint:dupl // 忽略
 func (h *BusinessHandler) PrivateRoutes(server *gin.Engine) {
 	server.POST("/resource/create", ginx.BS[ResourceReq](h.CreateResource))
-	server.POST("/resource/get", ginx.BS[ResourceReq](h.GetResource))
-	server.POST("/resource/list", ginx.BS[ListReq](h.ListResources))
+	server.GET("/resource/get", ginx.BS[ResourceReq](h.GetResource))
+	server.GET("/resource/list", ginx.BS[ListReq](h.ListResources))
 	server.POST("/resource/update", ginx.BS[ResourceReq](h.UpdateResource))
 	server.POST("/resource/delete", ginx.BS[ResourceReq](h.DeleteResource))
 
 	server.POST("/permission/create", ginx.BS[PermissionReq](h.CreatePermission))
-	server.POST("/permission/get", ginx.BS[PermissionReq](h.GetPermission))
-	server.POST("/permission/list", ginx.BS[ListReq](h.ListPermissions))
+	server.GET("/permission/get", ginx.BS[PermissionReq](h.GetPermission))
+	server.GET("/permission/list", ginx.BS[ListReq](h.ListPermissions))
 	server.POST("/permission/update", ginx.BS[PermissionReq](h.UpdatePermission))
 	server.POST("/permission/delete", ginx.BS[PermissionReq](h.DeletePermission))
 
 	server.POST("/role/create", ginx.BS[RoleReq](h.CreateRole))
-	server.POST("/role/get", ginx.BS[RoleReq](h.GetRole))
-	server.POST("/role/list", ginx.BS[ListReq](h.ListRoles))
+	server.GET("/role/get", ginx.BS[RoleReq](h.GetRole))
+	server.GET("/role/list", ginx.BS[ListReq](h.ListRoles))
 	server.POST("/role/update", ginx.BS[RoleReq](h.UpdateRole))
 	server.POST("/role/delete", ginx.BS[RoleReq](h.DeleteRole))
 
 	server.POST("/role-inclusion/create", ginx.BS[RoleInclusionReq](h.CreateRoleInclusion))
-	server.POST("/role-inclusion/get", ginx.BS[RoleInclusionReq](h.GetRoleInclusion))
-	server.POST("/role-inclusion/list", ginx.BS[ListReq](h.ListRoleInclusions))
+	server.GET("/role-inclusion/get", ginx.BS[RoleInclusionReq](h.GetRoleInclusion))
+	server.GET("/role-inclusion/list", ginx.BS[ListReq](h.ListRoleInclusions))
 	server.POST("/role-inclusion/delete", ginx.BS[RoleInclusionReq](h.DeleteRoleInclusion))
 
 	server.POST("/role/grant_permission", ginx.BS[RolePermissionReq](h.GrantRolePermission))
-	server.POST("/role/list_permission", ginx.BS[ListReq](h.ListRolePermissions))
+	server.GET("/role/list_permission", ginx.BS[ListReq](h.ListRolePermissions))
 	server.POST("/role/revoke_permission", ginx.BS[RolePermissionReq](h.RevokeRolePermission))
 
 	server.POST("/user/grant_role", ginx.BS(h.GrantUserRole))
-	server.POST("/user/list_role", ginx.BS[ListReq](h.ListUserRoles))
+	server.GET("/user/list_role", ginx.BS[ListReq](h.ListUserRoles))
 	server.POST("/user/revoke_role", ginx.BS(h.RevokeUserRole))
 
 	server.POST("/user/grant_permission", ginx.BS[UserPermissionReq](h.GrantUserPermission))
-	server.POST("/user/list_permission", ginx.BS[ListReq](h.ListUserPermissions))
+	server.GET("/user/list_permission", ginx.BS[ListReq](h.ListUserPermissions))
 	server.POST("/user/revoke_permission", ginx.BS[UserPermissionReq](h.RevokeUserPermission))
 }
 

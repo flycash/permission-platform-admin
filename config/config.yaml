@@ -1,0 +1,18 @@
+server:
+  web:
+    port: 8080
+    mode: debug
+  grpc:
+    rbac:
+      addr: "0.0.0.0:9002"
+      debug: true
+
+adminToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJiaXpfaWQiOjEsImV4cCI6NDkwMzIxNTgyMywiaWF0IjoxNzQ3NTQyMjIzLCJpc3MiOiJwZXJtaXNzaW9uLXBsYXRmb3JtIn0.f6SgU4RsVJqYoJqYQYhMQhjf_Pb7DTl3WloSyd_pmmQ"
+
+redis:
+  addr: "redis:6379"
+
+session:
+  sessionEncryptedKey: "permission-platform-admin"
+  cookie:
+    domain: "localhost"

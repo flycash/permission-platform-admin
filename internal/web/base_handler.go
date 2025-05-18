@@ -17,6 +17,10 @@ type BaseHandler struct {
 	adminToken    string
 }
 
+func NewBaseHandler(rbacSvc permissionv1.RBACServiceClient, permissionSvc permissionv1.PermissionServiceClient, adminToken string) *BaseHandler {
+	return &BaseHandler{rbacSvc: rbacSvc, permissionSvc: permissionSvc, adminToken: adminToken}
+}
+
 func (h *BaseHandler) systemAdminCtx(ctx context.Context) context.Context {
 	return metadata.AppendToOutgoingContext(ctx, "Authorization", h.adminToken)
 }

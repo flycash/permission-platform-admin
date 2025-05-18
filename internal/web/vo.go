@@ -25,7 +25,7 @@ type ListReq struct {
 }
 
 type ListResp[T any] struct {
-	Rows []T `json:"Rows,omitzero"`
+	Rows []T `json:"rows,omitzero"`
 }
 
 // Resource 资源
@@ -45,7 +45,7 @@ type ResourceReq struct {
 
 type Permission struct {
 	ID           int64  `json:"id,omitzero"`
-	BizID        int64  `json:"bizID,omitzero"`
+	BizID        int64  `json:"bizId,omitzero"`
 	Name         string `json:"name,omitzero"`
 	Description  string `json:"description,omitzero"`
 	ResourceID   int64  `json:"resourceId,omitzero"`
@@ -62,7 +62,7 @@ type PermissionReq struct {
 
 type Role struct {
 	ID          int64  `json:"id,omitzero"`
-	BizID       int64  `json:"bizID,omitzero"`
+	BizID       int64  `json:"bizId,omitzero"`
 	Name        string `json:"name,omitzero"`
 	Description string `json:"description,omitzero"`
 	Metadata    string `json:"metadata,omitzero"`
@@ -75,7 +75,7 @@ type RoleReq struct {
 
 type RoleInclusion struct {
 	ID            int64 `json:"id,omitzero"`
-	BizID         int64 `json:"bizID,omitzero"`
+	BizID         int64 `json:"bizId,omitzero"`
 	IncludingRole Role  `json:"includingRole"`
 	IncludedRole  Role  `json:"includedRole"`
 }
@@ -87,7 +87,7 @@ type RoleInclusionReq struct {
 
 type RolePermission struct {
 	ID         int64      `json:"id,omitzero"`
-	BizID      int64      `json:"bizID,omitzero"`
+	BizID      int64      `json:"bizId,omitzero"`
 	Role       Role       `json:"role,omitzero"`
 	Permission Permission `json:"permission,omitzero"`
 }
@@ -99,8 +99,8 @@ type RolePermissionReq struct {
 
 type UserRole struct {
 	ID        int64 `json:"id,omitzero"`
-	BizID     int64 `json:"bizID,omitzero"`
-	UserID    int64 `json:"userID,omitzero"`
+	BizID     int64 `json:"bizId,omitzero"`
+	UserID    int64 `json:"userId,omitzero"`
 	Role      Role  `json:"role"`
 	StartTime int64 `json:"startTime"`
 	EndTime   int64 `json:"endTime"`
@@ -113,8 +113,8 @@ type UserRoleReq struct {
 
 type UserPermission struct {
 	ID         int64      `json:"id,omitzero"`
-	BizID      int64      `json:"bizID,omitzero"`
-	UserID     int64      `json:"userID,omitzero"`
+	BizID      int64      `json:"bizId,omitzero"`
+	UserID     int64      `json:"userId,omitzero"`
 	Permission Permission `json:"permission,omitzero"`
 	StartTime  int64      `json:"startTime,omitzero"`
 	EndTime    int64      `json:"endTime,omitzero"`

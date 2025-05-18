@@ -156,7 +156,6 @@ func (svc *AdminService) createPermissionsForInitialBusinessResources(ctx contex
 			})
 			if err != nil {
 				return nil, err
-
 			}
 			permissions = append(permissions, svc.toPermissionDomain(resp.Permission))
 		}
@@ -191,7 +190,6 @@ func (svc *AdminService) createBusinessAdminRole(ctx context.Context, bizID int6
 	})
 	if err != nil {
 		return domain.Role{}, err
-
 	}
 	return domain.Role{
 		ID:          resp.Role.Id,
@@ -224,7 +222,7 @@ func (svc *AdminService) grantRolePermissions(ctx context.Context, bizID int64, 
 	return nil
 }
 
-func (svc *AdminService) grantUserRole(ctx context.Context, bizID int64, userID int64, role domain.Role) error {
+func (svc *AdminService) grantUserRole(ctx context.Context, bizID, userID int64, role domain.Role) error {
 	_, err := svc.rbacSvc.GrantUserRole(ctx, &permissionv1.GrantUserRoleRequest{
 		UserRole: &permissionv1.UserRole{
 			BizId:    bizID,
