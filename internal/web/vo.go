@@ -158,3 +158,11 @@ type RevokeUserRoleReq struct {
 	BizID int64 `json:"bizId,omitzero"`
 	ID    int64 `json:"id"`
 }
+
+type LoginReq struct {
+	ID   int64  `json:"id"`
+	BizID int64  `json:"bizId"`
+	Username string `json:"username,omitzero"`
+	Password string `json:"password,omitzero"`
+}
+
