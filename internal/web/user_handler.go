@@ -31,7 +31,7 @@ func NewUserHandler(handler *BaseHandler, client redis.Cmdable) *UserHandler {
 }
 
 func (h *UserHandler) PublicRoutes(server *gin.Engine) {
-
+	server.POST("/user/login", ginx.B(h.LoginDemo))
 }
 
 func (h *UserHandler) LoginDemo(ctx *ginx.Context, req LoginReq) (ginx.Result, error) {
